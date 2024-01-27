@@ -1,0 +1,3 @@
+module ShoppingCart {
+	requires junit;
+}
