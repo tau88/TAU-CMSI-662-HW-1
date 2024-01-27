@@ -102,7 +102,7 @@ public class CartItemType {
 	}
 	
 	public String toString() {
-		String tempString = itemName + ": " + itemQuantity;
+		String tempString = itemQuantity + " " + itemName + ": each costs $" + costPer_Item;
 		return tempString;
 	}
 }
