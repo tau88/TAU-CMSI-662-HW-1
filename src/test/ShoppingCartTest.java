@@ -56,11 +56,11 @@ public class ShoppingCartTest {
 		
 		ShoppingCart testCart = new ShoppingCart(customer, item_Catalog);
 		
-		Exception exception = assertThrows(NameNotValidException.class, () -> {
+		Exception exception = assertThrows(CatalogItem_NotValidException.class, () -> {
 			testCart.addCartItem("it", 3, 10);
         });
     	
-    	String expectedMessage = "is too short. Minimum length all";
+    	String expectedMessage = " is not in the Catalog. Ensure ";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
@@ -75,7 +75,7 @@ public class ShoppingCartTest {
 		
 		ShoppingCart testCart = new ShoppingCart(customer, item_Catalog);
 		
-		Exception exception = assertThrows(NameNotValidException.class, () -> {
+		Exception exception = assertThrows(QuantityNotValidException.class, () -> {
 			testCart.addCartItem("item1", -1, 10);
         });
     	
@@ -94,7 +94,7 @@ public class ShoppingCartTest {
 		
 		ShoppingCart testCart = new ShoppingCart(customer, item_Catalog);
 		
-		Exception exception = assertThrows(NameNotValidException.class, () -> {
+		Exception exception = assertThrows(CostNotValidException.class, () -> {
 			testCart.addCartItem("item1", 1, -10);
         });
     	
@@ -182,8 +182,24 @@ public class ShoppingCartTest {
 			testCart.changeCartItemQuantity("item1", 30);
         });
     	
-    	String expectedMessage = "is too high, the maximum quantity";
+    	String expectedMessage = "cannot have more than";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+	@Test
+    public void testCartTotals() throws CustomerIDNotValidException, CatalogItem_NotValidException, NameNotValidException, CostNotValidException, QuantityNotValidException {
+		String customerID = "aaa11111bb-A";
+    	CustomerIDType customer = new CustomerIDType(customerID);
+    	
+		ArrayList<String> itemList = new ArrayList<String>(Arrays.asList("item1", "item2", "item3"));
+		Item_CatalogType item_Catalog = new Item_CatalogType(itemList);
+		
+		ShoppingCart testCart = new ShoppingCart(customer, item_Catalog);
+		testCart.addCartItem("item1", 3, 10);
+		testCart.addCartItem("item2", 5, 5);
+		testCart.addCartItem("item3", 1, 100);
+		
+		assertTrue(testCart.getCartPriceTotal() == 155);
     }
 }

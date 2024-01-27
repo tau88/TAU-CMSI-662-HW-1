@@ -58,7 +58,7 @@ public class ShoppingCart {
 				cart_Inventory.add(new CartItemType(itemName, itemQuantity, itemCost));
 			}			
 		} else {
-			throw new CatalogItem_NotValidException(itemName);
+			throw new CatalogItem_NotValidException(itemName + " is not in the Catalog. Ensure you selected the correct item.");
 		}
 	}
 	
