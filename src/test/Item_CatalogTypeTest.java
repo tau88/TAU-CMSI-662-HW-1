@@ -8,8 +8,6 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import exceptions.CatalogItem_NotValidException;
-import exceptions.CustomerIDNotValidException;
-import shoppingCart.CustomerIDType;
 import shoppingCart.Item_CatalogType;
 
 public class Item_CatalogTypeTest {

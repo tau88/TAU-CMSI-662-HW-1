@@ -62,16 +62,23 @@ public class ShoppingCart {
 		}
 	}
 	
-	public void removeCartItem(String itemName) {
+	public void removeCartItem(String itemName) throws ItemNotInCartException {
 		int cartItem_Index = cartItemExists(itemName);
 		if (cartItem_Index != -1) {
 			cart_Inventory.remove(cart_Inventory.get(cartItem_Index));
 		}
+		else
+			throw new ItemNotInCartException(itemName);
 	}
 	
-	public String changeCartItemQuantity(CartItemType itemName, int new_Quantity) {
-		String errorMsg = cart_Inventory.get(cart_Inventory.indexOf(itemName)).setQuantity(new_Quantity);
-		return errorMsg;
+	public void changeCartItemQuantity(String itemName, int new_Quantity) throws ItemNotInCartException, QuantityNotValidException {
+		int cartItem_Index = cartItemExists(itemName);
+		if (cartItem_Index != -1) {
+			String quantityValid = cart_Inventory.get(cartItem_Index).setQuantity(new_Quantity);
+			if (!quantityValid.isEmpty())
+				throw new QuantityNotValidException(quantityValid);				
+		} else
+			throw new ItemNotInCartException(itemName);
 	}
 	
 	public int getCartPriceTotal() throws ArithmeticException {

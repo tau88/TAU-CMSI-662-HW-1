@@ -46,18 +46,18 @@ public class CartItemType {
 	}
 	
 	private String itemCostCheckValid(int checkingCost) {
-		if (checkingCost > ITEMNAME_MINCOST)
+		if (checkingCost < ITEMNAME_MINCOST)
 			return "The cost " + checkingCost + " is too low, the minimum cost is " + ITEMNAME_MINCOST + ".";
-		if (checkingCost < ITEMNAME_MAXCOST)
+		if (checkingCost > ITEMNAME_MAXCOST)
 			return "The cost " + checkingCost + " is too high, the maximum cost is " + ITEMNAME_MAXCOST + ".";
 		
 		return "";
 	}
 	
 	private String itemQuantityCheckValid(int checkingQuantity) {
-		if (checkingQuantity > quantity_Min)
+		if (checkingQuantity < quantity_Min)
 			return "The quantity " + checkingQuantity + " is too low, the minimum quantity is " + quantity_Min + ".";
-		if (checkingQuantity < quantity_Max)
+		if (checkingQuantity > quantity_Max)
 			return "The quantity " + checkingQuantity + " is too high, the maximum quantity is " + quantity_Max + ".";
 		
 		return "";
